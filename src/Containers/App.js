@@ -3,6 +3,8 @@ import './App.css';
 import Person from '../Components/Persons/Person/Person';
 // import Radium, {StyleRoot} from 'radium';
 import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -56,49 +58,35 @@ deletePersonHandler = (personIndex) => {
     // }
 
     let persons = null;
-    let btnClasses = '';
+    
     //let classes = ["red", "bold"].join(' ');
     if(this.state.showPersons) {
       persons = (
         <div>
-          {
-            this.state.persons.map((person, index) => {
-              return <ErrorBoundary key={person.id}><Person 
-              click={() => this.deletePersonHandler(index)}
-              name={person.name} 
-              age={person.age}
-              
-              changed={(event) => this.nameChangeHandler(event, person.id)} />
-              </ErrorBoundary>
-            })
-          }
+          <Persons 
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed = {this.nameChangeHandler}
+          />
           
         </div> 
       );
-      btnClasses = 'red';
+     
       // style.backgroundColor = "red";
       // style[':hover']= {
       //   backgroundColor:'lightred',
       //   color: 'black'
       // };
     }
-
-    const assaignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assaignedClasses.push('red');
-    }
-    if (this.state.persons.length <= 1) {
-      assaignedClasses.push('bold');
-    }
     return (
       // <StyleRoot>
       <div className="App">
-        <h1>Hi, I am React App</h1>
-        <p className={assaignedClasses.join(' ')}>This is really working!!</p>
-        <button 
-        className={btnClasses}
-        onClick={this.togglePersonHandler}>Switch Name</button>
-       
+        <Cockpit 
+        appTitle = {this.props.title}
+        showPersons = {this.state.showPersons}
+        persons = {this.state.persons}
+        clicked = {this.togglePersonHandler}
+        />
         {persons}
       </div>  
       // </StyleRoot>
