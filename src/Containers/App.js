@@ -5,6 +5,8 @@ import Person from '../Components/Persons/Person/Person';
 import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
+import withClass from '../hoc/WithClass';
+import Aux from '../hoc/Aux';
 
 class App extends PureComponent {
   constructor(props) {
@@ -120,7 +122,7 @@ deletePersonHandler = (personIndex) => {
     }
     return (
       // <StyleRoot>
-      <div className="App">
+      <Aux>
         <button onClick={()=>{this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit 
         appTitle = {this.props.title}
@@ -129,7 +131,7 @@ deletePersonHandler = (personIndex) => {
         clicked = {this.togglePersonHandler}
         />
         {persons}
-      </div>  
+      </Aux>
       // </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi I am React App!!'));
@@ -138,4 +140,4 @@ deletePersonHandler = (personIndex) => {
 
 
 // export default Radium(App);//using radium
-export default App;
+export default withClass(App, 'App');
