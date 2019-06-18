@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import './App.css';
 import Person from '../Components/Persons/Person/Person';
 // import Radium, {StyleRoot} from 'radium';
@@ -6,16 +6,55 @@ import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
-class App extends Component {
-  state = {
-    persons : [
-      { id:"weri1", name: "Max", age: 45},
-      { id:"twe1", name: "Ajit", age: 45},
-      { id:"fdsfs11", name: "Rajib", age: 45}
-    ],
-    otherstate : "some other value",
-    showPersons :  false
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] inside constructor', props);
+    this.state = {
+      persons : [
+        { id:"weri1", name: "Max", age: 45},
+        { id:"twe1", name: "Ajit", age: 45},
+        { id:"fdsfs11", name: "Rajib", age: 45}
+      ],
+      otherstate : "some other value",
+      showPersons :  false
+    }
   }
+
+  componentWillMount() {
+    console.log('[App.js] inside component will mount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] inside component Did mount');
+  }
+
+  componentWillReceiveProps ( nextProps ) {
+    console.log('[Update App.js] inside component will receive props', nextProps);
+  }
+
+  // shouldComponentUpdate( nextProps, nextState ) {
+  //     console.log('[Update App.js] inside component should update', nextProps,  nextState);
+  //     return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
+  // }
+
+  componentWillUpdate(nextProps,  nextState) {
+      console.log('[Update App.js] inside componentwillupdate', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+      console.log('[Update App.js] inside componentDidUpdate');
+  }
+
+  // state = {
+  //   persons : [
+  //     { id:"weri1", name: "Max", age: 45},
+  //     { id:"twe1", name: "Ajit", age: 45},
+  //     { id:"fdsfs11", name: "Rajib", age: 45}
+  //   ],
+  //   otherstate : "some other value",
+  //   showPersons :  false
+  // }
 
   nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex( p => {
@@ -44,6 +83,7 @@ deletePersonHandler = (personIndex) => {
   }
 
   render() {
+    console.log('[App.js] inside component render');
     // const style={
     //   backgroundColor: 'green',
     //   color: 'white',
@@ -81,6 +121,7 @@ deletePersonHandler = (personIndex) => {
     return (
       // <StyleRoot>
       <div className="App">
+        <button onClick={()=>{this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit 
         appTitle = {this.props.title}
         showPersons = {this.state.showPersons}
