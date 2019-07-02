@@ -14,7 +14,7 @@ class App extends PureComponent {
     console.log('[App.js] inside constructor', props);
     this.state = {
       persons : [
-        { id:"weri1", name: "Max", age: 45},
+        { id:"weri1", name: "Max", age: "45"},
         { id:"twe1", name: "Ajit", age: 45},
         { id:"fdsfs11", name: "Rajib", age: 45}
       ],
@@ -85,7 +85,7 @@ deletePersonHandler = (personIndex) => {
     this.setState((prevState, props)=>{
       return {
         showPersons : !doesShow, 
-        toggleClicked : this.state.toggleClicked + 1
+        toggleClicked : prevState.toggleClicked + 1
       }
       
     });
